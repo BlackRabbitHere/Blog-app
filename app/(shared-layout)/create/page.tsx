@@ -7,10 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { api } from "@/convex/_generated/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "convex/react";
-import { create } from "domain";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
@@ -20,13 +17,13 @@ import z from "zod";
 
 export default function CreateRoute(){
     const [isPending,startTransition]=useTransition();
-    const mutation=useMutation(api.posts.createPost);
     const router=useRouter();
     const form=useForm({
             resolver:zodResolver(postSchema),
             defaultValues:{
                 title:"",
                 content:"",
+                image:undefined,
             },
         });
 
@@ -70,6 +67,22 @@ export default function CreateRoute(){
                                 <Field>
                                     <FieldLabel>Title</FieldLabel>
                                     <Textarea aria-invalid={fieldState.invalid} placeholder="Super cool blog content"{...field}/>
+                                    {fieldState.error && (
+                                        <FieldError errors={[fieldState.error]}/>
+                                    )}
+                                </Field>
+                            )}/>
+                            <Controller name="image" control={form.control} render={({field,fieldState})=>(
+                                <Field>
+                                    <FieldLabel>Image</FieldLabel>
+                                    <Input aria-invalid={fieldState.invalid} placeholder="Super cool blog content" 
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(event)=>{
+                                            const file=event.target.files?.[0];
+                                            field.onChange(file);
+                                        }}
+                                    />
                                     {fieldState.error && (
                                         <FieldError errors={[fieldState.error]}/>
                                     )}

@@ -9,6 +9,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
+export const dynamic = 'force-static'
+export const revalidate = 30;
+// false | 0 | number
+// 'auto' | 'force-dynamic' | 'error' | 'force-static'
+
 export default function BlogPage() {
     
   return (
@@ -28,7 +33,7 @@ export default function BlogPage() {
 
 
 async function LoadBlogList(){
-    await new Promise((resolve)=>setTimeout(resolve,5000)); 
+    
     const data=await fetchQuery(api.posts.getPosts);
     return (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -36,10 +41,10 @@ async function LoadBlogList(){
             <Card key={post._id} className="pt-0">
                 <div className="relative h-48 w-full overflow-hidden">
                     <Image 
-                    src="https://images.unsplash.com/photo-1526779259212-939e64788e3c?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src={post.imageUrl??"https://images.unsplash.com/photo-1526779259212-939e64788e3c?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
                     alt="image"
                     fill
-                    className="rounded-t-lg"
+                    className="rounded-t-lg object-cover"
                     />
                 </div>
 
