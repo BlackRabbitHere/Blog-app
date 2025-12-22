@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { fetchQuery } from "convex/nextjs";
+import { Metadata } from "next";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -13,6 +14,13 @@ export const dynamic = 'force-static'
 export const revalidate = 30;
 // false | 0 | number
 // 'auto' | 'force-dynamic' | 'error' | 'force-static'
+export const metadata:Metadata={
+    title:"Blog - Our Latest Articles and Insights",
+    description:"Stay updated with our latest articles, insights, and trends in the industry. Explore our blog for valuable information and expert opinions.",
+    category:'Web Development',
+    authors:[{name:'Kshitij'}],
+}
+
 
 export default function BlogPage() {
     
