@@ -5,11 +5,10 @@ import { fetchQuery } from "convex/nextjs";
 import { cacheLife, cacheTag } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
+import { connection } from "next/server";
 
 export default async function Home() {
-  "use cache";
-  cacheLife("hours");
-  cacheTag("blog");
+  await connection();
 
   const data = await fetchQuery(api.posts.getPosts);
   const homeBlogs = data?.slice(0, 3);

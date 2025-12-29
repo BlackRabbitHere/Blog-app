@@ -43,9 +43,10 @@ export default function BlogPage() {
 
 
 async function LoadBlogList(){
-    "use cache";
-    cacheLife("hours");
-    cacheTag("blog");
+    // "use cache";
+    // cacheLife("hours");
+    // cacheTag("blog");
+    await connection();
     const data=await fetchQuery(api.posts.getPosts);
     return (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
