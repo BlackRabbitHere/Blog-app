@@ -33,9 +33,9 @@ export default function BlogPage() {
         <p className="pt-4 max-w-2xl mx-auto text-xl text-muted-foreground">Insights,thoughts, and trends from our team.</p>
       </div>
 
-        {/* <Suspense fallback={<SkeletonLoadingUi/>}> */}
+        <Suspense fallback={<SkeletonLoadingUi/>}>
       <LoadBlogList />
-        {/* </Suspense> */}
+        </Suspense>
     </div>
     
   );

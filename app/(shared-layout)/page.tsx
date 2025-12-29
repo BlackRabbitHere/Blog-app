@@ -1,13 +1,27 @@
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { fetchQuery } from "convex/nextjs";
 import { cacheLife, cacheTag } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { connection } from "next/server";
+import { Suspense } from "react";
 
-export default async function Home() {
+export default function Home() {
+
+  return(
+    <>
+      <Suspense fallback={<SkeletonLoadingUi/>}>
+            <HomePage/>
+        </Suspense>
+    </>
+  )
+  
+}
+
+async function HomePage(){
   await connection();
 
   const data = await fetchQuery(api.posts.getPosts);
@@ -79,4 +93,22 @@ export default async function Home() {
       </div>
     </main>
   );
+}
+
+
+
+function SkeletonLoadingUi(){
+    return (
+        <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-3">
+            {[...Array(3)].map((_,i)=><div className="flex flex-col space-y-3" key={i}>
+                <Skeleton className="h-48 w-full rounded-xl"/>
+
+                <div className="space-y-2 flex flex-col">
+                    <Skeleton className="h-6 w-3/4"/>
+                    <Skeleton className="h-4 w-full"/>
+                    <Skeleton className="h-4 w-2/"/>
+                </div>
+            </div>)}
+        </div>
+    )
 }
