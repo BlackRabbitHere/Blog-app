@@ -23,7 +23,9 @@ export default function Home() {
 
 async function HomePage(){
   await connection();
-
+  // "use cache";
+  // cacheLife("hours");
+  // cacheTag("home");
   const data = await fetchQuery(api.posts.getPosts);
   const homeBlogs = data?.slice(0, 3);
 

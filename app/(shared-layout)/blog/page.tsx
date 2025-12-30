@@ -33,9 +33,9 @@ export default function BlogPage() {
         <p className="pt-4 max-w-2xl mx-auto text-xl text-muted-foreground">Insights,thoughts, and trends from our team.</p>
       </div>
 
-        <Suspense fallback={<SkeletonLoadingUi/>}>
+        {/* <Suspense fallback={<SkeletonLoadingUi/>}> */}
       <LoadBlogList />
-        </Suspense>
+        {/* </Suspense> */}
     </div>
     
   );
@@ -43,10 +43,10 @@ export default function BlogPage() {
 
 
 async function LoadBlogList(){
-    // "use cache";
-    // cacheLife("hours");
-    // cacheTag("blog");
-    await connection();
+    "use cache";
+    cacheLife("hours");
+    cacheTag("blog");
+    // await connection();
     const data=await fetchQuery(api.posts.getPosts);
     return (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
