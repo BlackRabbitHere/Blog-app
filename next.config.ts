@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "wandering-cardinal-709.convex.cloud",
+        hostname: "effervescent-tern-586.convex.cloud",
         port: "",
       }
     ],
